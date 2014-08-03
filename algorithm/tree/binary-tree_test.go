@@ -40,8 +40,12 @@ func TestBinaryTreeSetGet(t *testing.T) {
 		t.Error(fmt.Sprintf("%s != b", value))
 	}
 
-	for i := 10; i < 2000; i++ {
-		tree.Set(i, fmt.Sprintf("value_%d", i))
+	for _, i := range rand.Perm(2000) {
+
+		if i > 5 {
+
+			tree.Set(i, fmt.Sprintf("value_%d", i))
+		}
 	}
 
 	value, err = tree.Get(122)
@@ -79,7 +83,7 @@ func BinaryTreeGet(b *testing.B, items int) {
 
 	b.StopTimer()
 
-	for i := range rand.Perm(items) {
+	for _, i := range rand.Perm(items) {
 
 		tree.Set(i, fmt.Sprintf("value %d", i))
 	}
@@ -96,7 +100,7 @@ func BenchmarkBinaryTreeSet(b *testing.B) {
 
 	tree := new(BinaryTree)
 
-	for i := range rand.Perm(b.N) {
+	for _, i := range rand.Perm(b.N) {
 
 		tree.Set(i, fmt.Sprintf("value %d", i))
 	}

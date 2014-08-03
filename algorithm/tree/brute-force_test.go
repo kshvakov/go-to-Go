@@ -36,7 +36,7 @@ func BenchmarkBruteForceSet(b *testing.B) {
 
 	tree := new(BruteForce)
 
-	for i := range rand.Perm(b.N) {
+	for _, i := range rand.Perm(b.N) {
 
 		tree.Set(i, fmt.Sprintf("format %d", i))
 	}
@@ -64,7 +64,7 @@ func BruteForceGet(b *testing.B, items int) {
 
 	tree := new(BruteForce)
 
-	for i := range rand.Perm(items) {
+	for _, i := range rand.Perm(items) {
 
 		tree.Set(i, fmt.Sprintf("format %d", i))
 	}
