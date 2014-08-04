@@ -2,11 +2,11 @@ package sort
 
 func BubbleSort(slice []int) {
 
-	swap := true
+	swapped := true
 
-	for swap {
+	for swapped {
 
-		swap = false
+		swapped = false
 
 		for i := 0; i < len(slice)-1; i++ {
 
@@ -14,7 +14,7 @@ func BubbleSort(slice []int) {
 
 			if slice[i] > slice[j] {
 
-				swap = true
+				swapped = true
 
 				slice[i], slice[j] = slice[j], slice[i]
 			}
