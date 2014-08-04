@@ -7,7 +7,7 @@ import (
 
 func Test(f func(slice []int), t *testing.T) {
 
-	slice := []int{2, 1, 56, 21, 6, 89, 11, 2, 3, 52, 42, 11}
+	slice := rand.Perm(10)
 
 	f(slice)
 
