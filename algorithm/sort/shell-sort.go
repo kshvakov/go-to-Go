@@ -2,12 +2,12 @@ package sort
 
 func ShellSort(slice []int) {
 
-	chunk := 1
+	if len(slice) < 1 {
 
-	if chunk < len(slice) {
-
-		chunk = (3 * chunk) + 1
+		return
 	}
+
+	chunk := (3 * len(slice)) + 1
 
 	for chunk >= 1 {
 
