@@ -7,3 +7,4 @@ go:
 script:
  - go test -v ./algorithm/tree/
  - go test -v ./algorithm/search/
+ - go test -v ./algorithm/sort/
