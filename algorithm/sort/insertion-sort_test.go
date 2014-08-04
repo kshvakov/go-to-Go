@@ -5,11 +5,11 @@ import (
 	"testing"
 )
 
-func TestBubbleSort(t *testing.T) {
+func TestInsertionSort(t *testing.T) {
 
 	slice := []int{2, 1, 56, 21, 6, 89, 11, 2, 3, 52, 42, 11}
 
-	BubbleSort(slice)
+	InsertionSort(slice)
 
 	prev := slice[0]
 
@@ -24,10 +24,11 @@ func TestBubbleSort(t *testing.T) {
 
 			t.Fatal("slice not sorted")
 		}
+
 	}
 }
 
-func BenchmarkBuubleSort(b *testing.B) {
+func BenchmarkInsertionSort(b *testing.B) {
 
 	b.N = 1000
 
@@ -39,6 +40,6 @@ func BenchmarkBuubleSort(b *testing.B) {
 
 		b.StartTimer()
 
-		BubbleSort(slice)
+		InsertionSort(slice)
 	}
 }
