@@ -1,4 +1,4 @@
-go to Go
+go to Go [![Build Status](https://travis-ci.org/kshvakov/go-to-Go.svg?branch=master)](https://travis-ci.org/kshvakov/go-to-Go)
 ===
 
 это просто наброски кода, не используйте его как пакет для написания чего-либо 
