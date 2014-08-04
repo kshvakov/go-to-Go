@@ -6,3 +6,4 @@ go:
  - tip
 script:
  - go test -v ./algorithm/tree/
+ - go test -v ./algorithm/search/
