@@ -2,7 +2,7 @@ package sort
 
 func ShellSort(slice []int) {
 
-	if len(slice) < 1 {
+	if len(slice) <= 1 {
 
 		return
 	}
