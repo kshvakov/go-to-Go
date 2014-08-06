@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func BruteForceSearch(needle int, haystack []int) int {
+func LinearSearch(needle int, haystack []int) int {
 
 	for k, v := range haystack {
 
@@ -18,7 +18,7 @@ func BruteForceSearch(needle int, haystack []int) int {
 	return -1
 }
 
-func BenchmarkBruteForceSearch(b *testing.B) {
+func BenchmarkLinearSearch(b *testing.B) {
 
 	b.N = 10000
 
@@ -37,7 +37,7 @@ func BenchmarkBruteForceSearch(b *testing.B) {
 
 	for n := range needles {
 
-		if v := BruteForceSearch(n, haystack); v == -1 {
+		if v := LinearSearch(n, haystack); v == -1 {
 
 			b.Fatalf("%d not found", n)
 		}

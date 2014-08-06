@@ -7,15 +7,15 @@ import (
 	"testing"
 )
 
-type BruteForce struct {
-	list []*BruteForceNode
+type Linear struct {
+	list []*LinearNode
 }
 
-func (b *BruteForce) Set(key int, value string) {
-	b.list = append(b.list, &BruteForceNode{Key: key, Value: value})
+func (b *Linear) Set(key int, value string) {
+	b.list = append(b.list, &LinearNode{Key: key, Value: value})
 }
 
-func (b *BruteForce) Get(key int) (string, error) {
+func (b *Linear) Get(key int) (string, error) {
 
 	for _, N := range b.list {
 
@@ -28,7 +28,7 @@ func (b *BruteForce) Get(key int) (string, error) {
 	return "", errors.New("not found")
 }
 
-func (b *BruteForce) Min() (int, error) {
+func (b *Linear) Min() (int, error) {
 
 	if len(b.list) != 0 {
 
@@ -48,7 +48,7 @@ func (b *BruteForce) Min() (int, error) {
 	return 0, errors.New("not found")
 }
 
-func (b *BruteForce) Max() (int, error) {
+func (b *Linear) Max() (int, error) {
 
 	if len(b.list) != 0 {
 
@@ -68,7 +68,7 @@ func (b *BruteForce) Max() (int, error) {
 	return 0, errors.New("not found")
 }
 
-func (b *BruteForce) Delete(key int) {
+func (b *Linear) Delete(key int) {
 
 	for i, N := range b.list {
 
@@ -81,14 +81,14 @@ func (b *BruteForce) Delete(key int) {
 	}
 }
 
-type BruteForceNode struct {
+type LinearNode struct {
 	Key   int
 	Value string
 }
 
-func TestBruteForceMin(t *testing.T) {
+func TestLinearMin(t *testing.T) {
 
-	tree := new(BruteForce)
+	tree := new(Linear)
 
 	for _, i := range rand.Perm(528) {
 
@@ -107,9 +107,9 @@ func TestBruteForceMin(t *testing.T) {
 	}
 }
 
-func TestBruteForceMax(t *testing.T) {
+func TestLinearMax(t *testing.T) {
 
-	tree := new(BruteForce)
+	tree := new(Linear)
 
 	for _, i := range rand.Perm(528) {
 
@@ -128,8 +128,8 @@ func TestBruteForceMax(t *testing.T) {
 	}
 }
 
-func TestBruteForceDelete(t *testing.T) {
-	tree := new(BruteForce)
+func TestLinearDelete(t *testing.T) {
+	tree := new(Linear)
 
 	for _, i := range rand.Perm(528) {
 
@@ -155,9 +155,9 @@ func TestBruteForceDelete(t *testing.T) {
 	}
 }
 
-func BenchmarkBruteForceSet(b *testing.B) {
+func BenchmarkLinearSet(b *testing.B) {
 
-	tree := new(BruteForce)
+	tree := new(Linear)
 
 	for _, i := range rand.Perm(b.N) {
 
@@ -165,27 +165,27 @@ func BenchmarkBruteForceSet(b *testing.B) {
 	}
 }
 
-func BenchmarkBruteForceGet5000(b *testing.B) {
-	BruteForceGet(b, 5000)
+func BenchmarkLinearGet5000(b *testing.B) {
+	LinearGet(b, 5000)
 }
 
-func BenchmarkBruteForceGet10000(b *testing.B) {
-	BruteForceGet(b, 10000)
+func BenchmarkLinearGet10000(b *testing.B) {
+	LinearGet(b, 10000)
 }
 
-func BenchmarkBruteForceGet20000(b *testing.B) {
-	BruteForceGet(b, 20000)
+func BenchmarkLinearGet20000(b *testing.B) {
+	LinearGet(b, 20000)
 }
 
-func BenchmarkBruteForceGet40000(b *testing.B) {
-	BruteForceGet(b, 40000)
+func BenchmarkLinearGet40000(b *testing.B) {
+	LinearGet(b, 40000)
 }
 
-func BruteForceGet(b *testing.B, items int) {
+func LinearGet(b *testing.B, items int) {
 
 	b.StopTimer()
 
-	tree := new(BruteForce)
+	tree := new(Linear)
 
 	for _, i := range rand.Perm(items) {
 
