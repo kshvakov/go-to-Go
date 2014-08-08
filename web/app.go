@@ -11,6 +11,9 @@ func main() {
 	a.Get("/", func() string { return "Hi!!" })
 	a.Get("/a/", func() string { return "url path: a" })
 	a.Get("/b/", func() string { return "url path: b" })
+	a.Get("/b/a/", func() string { return "url path: b/a" })
+	a.Get("/b/:name/", func() string { return "url path: /b/:name/" })
+	a.Get("/b/:name/c/", func() string { return "url path: /b/:name/c/" })
 
 	a.Get("/panic/", func() string {
 
@@ -18,5 +21,5 @@ func main() {
 		return "panic"
 	})
 
-	a.Start()
+	a.Run()
 }
