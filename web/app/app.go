@@ -18,7 +18,7 @@ type App struct {
 	route map[string]func() string
 }
 
-func (a *App) AddRoute(pattern string, handler func() string) {
+func (a *App) Get(pattern string, handler func() string) {
 
 	a.route[strings.Trim(pattern, "/")] = handler
 }

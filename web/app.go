@@ -1,18 +1,18 @@
 package main
 
 import (
-	"./app"
+	"github.com/kshvakov/go-to-Go/web/app"
 )
 
 func main() {
 
 	a := app.NewApp()
 
-	a.AddRoute("/", func() string { return "Hi!!" })
-	a.AddRoute("/a/", func() string { return "url path: a" })
-	a.AddRoute("/b/", func() string { return "url path: b" })
+	a.Get("/", func() string { return "Hi!!" })
+	a.Get("/a/", func() string { return "url path: a" })
+	a.Get("/b/", func() string { return "url path: b" })
 
-	a.AddRoute("/panic/", func() string {
+	a.Get("/panic/", func() string {
 
 		panic("aaaa!!!!")
 		return "panic"
