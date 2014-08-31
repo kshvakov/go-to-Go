@@ -9,17 +9,15 @@ import (
 var memStats runtime.MemStats
 
 type request struct {
-	timerID    int
-	hostname   string
-	serverName string
+	timeStart  time.Time
+	schema     string
 	scriptName string
-
-	timers map[int]*timer
+	timers     []*timer
 }
 
-func (request *request) SetServerName(serverName string) {
+func (request *request) SetSchema(schema string) {
 
-	request.serverName = serverName
+	request.schema = schema
 }
 
 func (request *request) SetScriptName(scriptName string) {
@@ -27,33 +25,29 @@ func (request *request) SetScriptName(scriptName string) {
 	request.scriptName = scriptName
 }
 
-func (request *request) TimerStart(tags *Tags) int {
-
-	request.timerID++
-
-	timerID := request.timerID
+func (request *request) TimerStart(tags *Tags) *timer {
 
 	runtime.ReadMemStats(&memStats)
 
-	request.timers[timerID] = &timer{
+	timer := &timer{
 		started:     true,
 		timeStart:   time.Now(),
 		tags:        tags,
 		memoryUsage: memStats.TotalAlloc,
 	}
 
-	return timerID
+	request.timers = append(request.timers, timer)
+
+	return timer
 }
 
-func (request *request) TimerStop(timerID int) {
+func (request *request) TimerStop(timer *timer) {
 
-	if timer, found := request.timers[timerID]; found {
+	runtime.ReadMemStats(&memStats)
 
-		runtime.ReadMemStats(&memStats)
-		timer.started = false
-		timer.timeEnd = time.Now()
-		timer.memoryUsage = memStats.TotalAlloc - timer.memoryUsage
-	}
+	timer.started = false
+	timer.timeEnd = time.Now()
+	timer.memoryUsage = memStats.TotalAlloc - timer.memoryUsage
 }
 
 func (request *request) GetInfo() *request {

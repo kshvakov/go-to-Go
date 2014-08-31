@@ -3,29 +3,23 @@ package gopinba
 import (
 	"fmt"
 	"net"
-	"os"
+	"time"
 	//"code.google.com/p/goprotobuf/proto"
 )
 
 type pinba struct {
 	pinbaServer string
 	pinbaPort   int
+	hostname    string
+	serverName  string
 }
 
 func (pinba *pinba) Request() *request {
 
-	hostname := "unknown"
-
-	if value, err := os.Hostname(); err == nil {
-
-		hostname = value
-	}
-
 	request := &request{
-		hostname:   hostname,
-		serverName: "unknown",
+		timeStart:  time.Now(),
 		scriptName: "unknown",
-		timers:     make(map[int]*timer),
+		//timers:     make([]*timer, 0, 10),
 	}
 
 	return request

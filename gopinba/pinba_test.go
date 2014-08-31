@@ -2,7 +2,7 @@ package gopinba
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
+	//"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -12,11 +12,11 @@ func TestPinba(t *testing.T) {
 	request := pinba.Request()
 	request.SetScriptName("scriptName")
 
-	var timerID int
+	var tmr *timer
 
 	for i := 0; i < 20; i++ {
 
-		timerID = request.TimerStart(&Tags{"tag": fmt.Sprintf("tag_%d", i)})
+		tmr = request.TimerStart(&Tags{"tag": fmt.Sprintf("tag_%d", i)})
 
 		if i == 4 {
 
@@ -28,34 +28,36 @@ func TestPinba(t *testing.T) {
 			}
 		}
 
-		fmt.Println(timerID)
-
-		request.TimerStop(timerID)
+		request.TimerStop(tmr)
 	}
 
-	request.TimerStop(42)
+	info := request.GetInfo()
 
-	fmt.Println(request.GetInfo())
+	for _, t := range info.timers {
+
+		fmt.Printf("%#v\n", *t)
+	}
 
 	pinba.Flush(request)
 
-	assert.Equal(t, 1, 1)
+	//assert.Equal(t, 1, 1)
 }
 
 func BenchmarkPinba(b *testing.B) {
 
 	pinba := New(&Options{})
 
-	request := pinba.Request()
-
-	var timerID int
+	var tmr *timer
 
 	for i := 0; i < b.N; i++ {
 
-		timerID = request.TimerStart(&Tags{"tag": "a"})
+		request := pinba.Request()
 
-		request.TimerStop(timerID)
+		for i := 0; i < 10; i++ {
+
+			tmr = request.TimerStart(&Tags{"tag": "a"})
+
+			request.TimerStop(tmr)
+		}
 	}
-
-	pinba.Flush(request)
 }
