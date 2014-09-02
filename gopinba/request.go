@@ -9,10 +9,11 @@ import (
 var memStats runtime.MemStats
 
 type request struct {
-	timeStart  time.Time
-	schema     string
-	scriptName string
-	timers     []*timer
+	timeStart    time.Time
+	schema       string
+	scriptName   string
+	requestCount uint32
+	timers       []*timer
 }
 
 func (request *request) SetSchema(schema string) {
@@ -26,6 +27,8 @@ func (request *request) SetScriptName(scriptName string) {
 }
 
 func (request *request) TimerStart(tags *Tags) *timer {
+
+	request.requestCount++
 
 	runtime.ReadMemStats(&memStats)
 

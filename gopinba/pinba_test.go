@@ -2,9 +2,24 @@ package gopinba
 
 import (
 	"fmt"
-	//"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
+
+func TestInSlice(t *testing.T) {
+
+	slice := []string{"a", "b", "c", "d", "e"}
+
+	position, exist := inSlice("c", slice)
+
+	assert.True(t, exist)
+	assert.Equal(t, 2, position)
+
+	position, exist = inSlice("z", slice)
+
+	assert.False(t, exist)
+	assert.Equal(t, position, -1)
+}
 
 func TestPinba(t *testing.T) {
 	pinba := New(&Options{})
@@ -31,16 +46,13 @@ func TestPinba(t *testing.T) {
 		request.TimerStop(tmr)
 	}
 
-	info := request.GetInfo()
+	tmr = request.TimerStart(&Tags{"tag": "tag_1", "operation": "select"})
+	request.TimerStop(tmr)
 
-	for _, t := range info.timers {
+	result := pinba.Flush(request)
 
-		fmt.Printf("%#v\n", *t)
-	}
+	fmt.Println(result)
 
-	pinba.Flush(request)
-
-	//assert.Equal(t, 1, 1)
 }
 
 func BenchmarkPinba(b *testing.B) {
