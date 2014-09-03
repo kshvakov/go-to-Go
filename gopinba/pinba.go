@@ -42,7 +42,7 @@ func (pinba *pinba) Flush(request *request) error {
 		RequestCount: proto.Uint32(request.requestCount),
 		DocumentSize: proto.Uint32(0),
 		MemoryPeak:   proto.Uint32(0),
-		RequestTime:  proto.Float32(float32(time.Since(request.timeStart))),
+		RequestTime:  proto.Float32(float32(time.Since(request.timeStart).Seconds())),
 		RuUtime:      proto.Float32(0),
 		RuStime:      proto.Float32(0),
 		Dictionary:   make([]string, 0),
@@ -52,7 +52,7 @@ func (pinba *pinba) Flush(request *request) error {
 
 		req.TimerTagCount = append(req.TimerTagCount, uint32(len(*timer.tags)))
 		req.TimerHitCount = append(req.TimerHitCount, 1)
-		req.TimerValue = append(req.TimerValue, float32(timer.timeEnd.Sub(timer.timeStart)))
+		req.TimerValue = append(req.TimerValue, float32(timer.timeEnd.Sub(timer.timeStart).Seconds()))
 
 		for tag, value := range *timer.tags {
 
